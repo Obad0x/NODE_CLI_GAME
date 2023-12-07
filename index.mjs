@@ -32,3 +32,65 @@ async function Welcome(){
 
 
 await Welcome();
+
+
+
+async function askName() {
+        const answers = await inquirer.prompt({
+            name :'player_name',
+            type : 'input',
+            message : ' What is your name',
+            default(){
+                    return 'Player';
+            },
+        });
+
+        playerName = answers.player_name;
+}
+
+await askName();
+
+
+async function question1(){
+    const answers = await inquirer.prompt({
+        name :'question_1',
+        type : 'list',
+        message : ' Javascript was created in 10 days then released on \n',
+        choices :[
+            'May 23rd, 1995',
+            'Nov 24th, 1995',
+            'Dec 4th, 1995',
+            'Dec 17th, 1995',
+        ],
+    });
+    return handleAnswer(answers.question_1 == 'Dec 4th, 1995');
+}
+
+
+async function handleAnswer(isCorrect){
+        const spinner = createSpinner('Checking answer...').start();
+        await sleep();
+
+
+        if(isCorrect){
+                spinner.success({ text: `Nice Work ${playerName}.`})
+        }else{
+            spinner.error({ text: `💀💀💀 Game Over , you lose ${playerName}!`});
+            process.exit(1);
+        }
+}
+
+await question1();
+
+
+function winner(){
+    console.clear();
+    const msg = `Congrats, ${playerName}! \n $ 1 , 0 0 0 , 0 0 0` 
+
+    figlet(msg, (err, data)=>{
+        console.log(gradient.pastel.multiline(data))
+    })
+}
+
+await winner();
+

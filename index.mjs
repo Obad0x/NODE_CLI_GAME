@@ -65,6 +65,20 @@ async function question1(){
     });
     return handleAnswer(answers.question_1 == 'Dec 4th, 1995');
 }
+async function question2(){
+    const answers = await inquirer.prompt({
+        name :'question_2',
+        type : 'list',
+        message : ' Which statement will correctly determine if a number is odd in JavaScript? \n',
+        choices :[
+            'number % 2 === 0',
+            'number % 2 === 1',
+            'number / 2 === 0',
+            'number / 2 === 1',
+        ],
+    });
+    return handleAnswer(answers.question_2 == 'number % 2 === 1');
+}
 
 
 async function handleAnswer(isCorrect){
@@ -80,7 +94,7 @@ async function handleAnswer(isCorrect){
         }
 }
 
-await question1();
+
 
 
 function winner(){
@@ -92,5 +106,8 @@ function winner(){
     })
 }
 
+
+await question1();
+await question2();
 await winner();
 
